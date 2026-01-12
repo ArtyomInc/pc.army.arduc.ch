@@ -53,6 +53,14 @@
           <Checkbox id="hasServiceBooklet" v-model="userForm.hasServiceBooklet" />
           <Label for="hasServiceBooklet">Livret de service</Label>
         </div>
+
+        <div
+          v-if="errorMessage"
+          class="bg-destructive/10 border border-destructive flex gap-2 items-start p-3 rounded-md text-destructive"
+        >
+          <Icon name="lucide:alert-circle" size="20" class="flex-shrink-0 mt-0.5" />
+          <p class="text-sm">{{ errorMessage }}</p>
+        </div>
       </CardContent>
       <CardFooter class="flex justify-end">
         <Button :disabled="!canSubmit" class="min-w-[120px]" @click="handleSubmit">
@@ -139,6 +147,7 @@ const userForm = reactive<{
 })
 
 const isSubmitting = ref(false)
+const errorMessage = ref('')
 
 // Combiner les sections des personnes présentes et les sections du personnel de référence
 const availableSections = computed(() => {
@@ -188,6 +197,7 @@ const handleSubmit = async () => {
   if (!canSubmit.value) return
 
   isSubmitting.value = true
+  errorMessage.value = ''
 
   try {
     await new Promise((resolve) => setTimeout(resolve, 300))
@@ -205,6 +215,8 @@ const handleSubmit = async () => {
       userForm.lastName = ''
       userForm.grade = ''
       userForm.hasServiceBooklet = false
+    } else {
+      errorMessage.value = `${userForm.firstName} ${userForm.lastName} est déjà enregistré(e) dans les présences.`
     }
   } finally {
     isSubmitting.value = false

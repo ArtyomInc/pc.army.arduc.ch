@@ -2,15 +2,19 @@
   <div class="flex flex-col gap-6">
     <Card>
       <CardHeader>
-        <div class="flex items-center justify-between">
-          <div>
-            <CardTitle>Vue d'ensemble des Absences</CardTitle>
-            <CardDescription>
-              {{ totalAbsences }} personne{{ totalAbsences > 1 ? 's' : '' }} absente{{
+        <div class="flex flex-col gap-4">
+          <CardTitle>Vue d'ensemble des Absences</CardTitle>
+          <div class="bg-destructive/5 flex gap-3 items-center p-4 rounded-lg">
+            <Icon name="lucide:user-x" size="24" class="text-destructive" />
+            <div class="font-semibold text-lg">
+              <span class="text-destructive">{{ totalAbsences }}</span> personne{{
                 totalAbsences > 1 ? 's' : ''
               }}
-              dans {{ absencesSections.length }} section{{ absencesSections.length > 1 ? 's' : '' }}
-            </CardDescription>
+              absente{{ totalAbsences > 1 ? 's' : '' }} dans
+              <span class="text-destructive">{{ absencesSections.length }}</span> section{{
+                absencesSections.length > 1 ? 's' : ''
+              }}
+            </div>
           </div>
         </div>
       </CardHeader>

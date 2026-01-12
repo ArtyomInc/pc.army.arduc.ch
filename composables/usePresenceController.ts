@@ -53,6 +53,17 @@ export const usePresenceController = () => {
     hasServiceBooklet = false
   ) => {
     if (firstName.trim() && lastName.trim() && grade.trim() && section) {
+      // Vérifier si une personne avec le même prénom et nom existe déjà
+      const isDuplicate = people.value.some(
+        (p) =>
+          p.firstName.toLowerCase() === firstName.trim().toLowerCase() &&
+          p.lastName.toLowerCase() === lastName.trim().toLowerCase()
+      )
+
+      if (isDuplicate) {
+        return null
+      }
+
       const person: Person = {
         firstName: firstName.trim(),
         grade: grade.trim(),

@@ -2,21 +2,24 @@
   <div class="flex flex-col gap-6">
     <Card>
       <CardHeader>
-        <div class="flex items-center justify-between">
-          <div>
+        <div class="flex flex-col gap-4">
+          <div class="flex items-center justify-between">
             <CardTitle>Vue d'ensemble des Présences</CardTitle>
-            <CardDescription>
-              {{ totalPeople }} personne{{ totalPeople > 1 ? 's' : '' }} enregistrée{{
+            <div v-if="totalPeople > 0" class="flex gap-2">
+              <Button variant="outline" @click="exportToExcel">
+                <Icon name="lucide:download" size="20" class="mr-2" />
+                Exporter XLSX
+              </Button>
+            </div>
+          </div>
+          <div class="bg-primary/5 flex gap-3 items-center p-4 rounded-lg">
+            <Icon name="lucide:users" size="24" class="text-primary" />
+            <div class="font-semibold text-lg">
+              <span class="text-primary">{{ totalPeople }}</span> personne{{ totalPeople > 1 ? 's' : '' }} enregistrée{{
                 totalPeople > 1 ? 's' : ''
               }}
-              dans {{ sections.length }} section{{ sections.length > 1 ? 's' : '' }}
-            </CardDescription>
-          </div>
-          <div v-if="totalPeople > 0" class="flex gap-2">
-            <Button variant="outline" @click="exportToExcel">
-              <Icon name="lucide:download" size="20" class="mr-2" />
-              Exporter XLSX
-            </Button>
+              dans <span class="text-primary">{{ sections.length }}</span> section{{ sections.length > 1 ? 's' : '' }}
+            </div>
           </div>
         </div>
       </CardHeader>
