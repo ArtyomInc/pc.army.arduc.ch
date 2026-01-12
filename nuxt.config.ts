@@ -116,10 +116,12 @@ export default defineNuxtConfig({
       theme_color: '#0a0a0a'
     },
     registerType: 'prompt',
+    strategies: 'generateSW',
     workbox: {
       cleanupOutdatedCaches: true,
+      clientsClaim: true,
       globIgnores: ['**/*.map', '**/node_modules/**', '**/*.md'],
-      globPatterns: ['**/*.{js,css,html}', '**/*.{png,svg,ico,webp}'],
+      globPatterns: ['**/*.{js,css,html}', '**/*.{png,svg,ico,webp,jpg,jpeg}', '**/*.{woff,woff2,ttf,eot}'],
       navigateFallback: '/',
       runtimeCaching: [
         {
@@ -162,7 +164,8 @@ export default defineNuxtConfig({
           },
           urlPattern: /^https?:\/\/[^/]+\/pictures\/.*/i
         }
-      ]
+      ],
+      skipWaiting: true
     }
   },
   shadcn: {
