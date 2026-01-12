@@ -143,7 +143,7 @@ const userForm = reactive<{
   section?: string
   hasServiceBooklet?: boolean
 }>({
-  hasServiceBooklet: false
+  hasServiceBooklet: true
 })
 
 const isSubmitting = ref(false)
@@ -214,7 +214,7 @@ const handleSubmit = async () => {
       userForm.firstName = ''
       userForm.lastName = ''
       userForm.grade = ''
-      userForm.hasServiceBooklet = false
+      userForm.hasServiceBooklet = true
     } else {
       errorMessage.value = `${userForm.firstName} ${userForm.lastName} est déjà enregistré(e) dans les présences.`
     }
