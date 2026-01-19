@@ -74,7 +74,7 @@
       </div>
 
       <div class="flex flex-wrap gap-4 mb-6">
-        <Link variant="secondary" href="https://github.com/ArtyomInc/swiss-army-presence-controller" target="_blank">
+        <Link variant="secondary" href="https://github.com/ArtyomInc/pc.army.arduc.ch" target="_blank">
           <Icon name="lucide:github" size="16" />
           Code source du projet
         </Link>
