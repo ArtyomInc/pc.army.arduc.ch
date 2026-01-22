@@ -31,12 +31,14 @@ Cette licence accorde les permissions suivantes :
 **L'utilisation commerciale de ce logiciel nécessite une autorisation préalable et une compensation financière.**
 
 Est considéré comme usage commercial :
+
 - La vente du logiciel ou de services basés sur ce logiciel
 - L'intégration dans un produit commercial
 - L'utilisation dans le cadre d'une activité génératrice de revenus
 - La fourniture de services payants utilisant ce logiciel
 
 Pour toute utilisation commerciale :
+
 1. Vous devez contacter l'auteur original pour négocier les termes
 2. Un accord de licence commerciale distinct doit être établi
 3. Une compensation financière sera convenue entre les parties

@@ -70,7 +70,7 @@
             <EmptyTitle>Aucune personne dans la liste</EmptyTitle>
             <EmptyDescription>Importez un fichier XLSX pour commencer</EmptyDescription>
           </EmptyHeader>
-          <EmptyContent>
+          <EmptyContent class="flex flex-col gap-2">
             <Dialog v-model:open="dialogImportOpen">
               <form>
                 <DialogTrigger as-child>
@@ -84,16 +84,12 @@
                     <DialogTitle>Import un fichier</DialogTitle>
                     <DialogDescription>Format de fichier accepté : .xlsx, .xls </DialogDescription>
                   </DialogHeader>
-                  Le format suivant doit être respecté pour que l'import fonctionne correctement :
+                  Le format du fichier(.xlsx, .xls) doit être respecté pour que l'import fonctionne correctement :
                   <ul class="list-disc list-inside mt-2">
                     <li>Colonne A : Grade</li>
                     <li>Colonne B : Nom, Prénom (séparés par une virgule)</li>
                     <li>Colonne C : Section</li>
                   </ul>
-                  <p class="mt-2 text-muted-foreground text-sm">
-                    Note: Les 3 colonnes sont obligatoires. La colonne Section sera utilisée pour la validation lors de
-                    l'ajout de présences.
-                  </p>
 
                   <DialogFooter>
                     <DialogClose as-child>
@@ -114,6 +110,10 @@
                 </DialogContent>
               </form>
             </Dialog>
+            <Button variant="outline" @click="showAddDialog = true">
+              <Icon name="lucide:user-plus" size="20" class="mr-2" />
+              Ajouter manuellement
+            </Button>
           </EmptyContent>
         </Empty>
       </CardContent>

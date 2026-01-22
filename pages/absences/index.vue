@@ -116,6 +116,7 @@
                   </div>
                 </TableHead>
                 <TableHead>Section</TableHead>
+                <TableHead class="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -128,16 +129,46 @@
                 <TableCell class="font-medium">{{ person.firstName }}</TableCell>
                 <TableCell class="font-medium">{{ person.lastName }}</TableCell>
                 <TableCell class="text-muted-foreground">{{ person.section || '-' }}</TableCell>
+                <TableCell class="text-right">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    class="hover:bg-destructive/10 hover:text-destructive text-destructive"
+                    @click="confirmRemovePerson(person)"
+                  >
+                    <Icon name="lucide:trash-2" size="14" />
+                  </Button>
+                </TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </CardContent>
       </Card>
     </div>
+
+    <!-- Dialog de suppression -->
+    <Dialog :open="!!personToRemove" @update:open="(open) => !open && cancelRemove()">
+      <DialogContent class="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>Confirmer la suppression</DialogTitle>
+          <DialogDescription>
+            Êtes-vous sûr de vouloir supprimer {{ personToRemove?.grade }} {{ personToRemove?.firstName }}
+            {{ personToRemove?.lastName }} de la liste du personnel ? Cette personne n'apparaîtra plus comme absente.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter class="flex gap-2 justify-end">
+          <Button variant="outline" @click="cancelRemove">Annuler</Button>
+          <Button variant="destructive" @click="confirmRemove">Supprimer</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   </div>
 </template>
 
 <script setup lang="ts">
+import type { PersonReference } from '~/types/presence'
+
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/ui/dialog'
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/ui/empty'
 import { Link } from '@/ui/link'
 import { usePersonReference } from '~/composables/usePersonReference'
@@ -149,8 +180,10 @@ useSeoMeta({
   title: 'Absences - Presence Controller'
 })
 
-const { people: personnelList } = usePersonReference()
+const { people: personnelList, removePerson } = usePersonReference()
 const { people: presences } = usePresenceController()
+
+const personToRemove = ref<PersonReference | null>(null)
 
 // Calculer les absences en comparant la liste du personnel avec les présences
 const absences = computed(() => {
@@ -239,5 +272,20 @@ const getSortedAbsencesBySection = (sectionName: string) => {
       return aValue > bValue ? -1 : aValue < bValue ? 1 : 0
     }
   })
+}
+
+const confirmRemovePerson = (person: PersonReference) => {
+  personToRemove.value = person
+}
+
+const cancelRemove = () => {
+  personToRemove.value = null
+}
+
+const confirmRemove = () => {
+  if (personToRemove.value) {
+    removePerson(personToRemove.value.id)
+    personToRemove.value = null
+  }
 }
 </script>
